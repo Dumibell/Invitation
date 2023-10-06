@@ -4,3 +4,8 @@ export interface IRegister {
   drive: string;
   goal: string;
 }
+
+export interface IList extends IRegister {
+  id: string;
+  createdAt: string;
+}
