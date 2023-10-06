@@ -98,11 +98,11 @@ export default function Register() {
             type="date"
             register={register("birth", { required: true })}
           />
-          <Label>운전 가능 여부</Label>
+          <Label>운전면허 취득 여부</Label>
           <Select onChange={(e) => setValue("drive", e.target.value)}>
             <option>선택</option>
-            <option value="true">가능</option>
-            <option value="false">블가능</option>
+            <option value="면허">면허</option>
+            <option value="무면허">무면허</option>
           </Select>
           <Input
             label="각오 한마디^~^"
