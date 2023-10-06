@@ -1,15 +1,11 @@
 import { Button } from "@/Components/Button";
 import { dbService } from "@/firebase";
-import { IRegister } from "@/interfaces/interfaces";
+import { IList, IRegister } from "@/interfaces/interfaces";
 import styled from "@emotion/styled";
 import { useSpring, animated } from "@react-spring/web";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-
-interface IList extends IRegister {
-  id: string;
-}
 
 export default function Home() {
   const router = useRouter();
@@ -31,9 +27,9 @@ export default function Home() {
     <Container>
       <InnerContainer>
         <Title>
-          <p className="title">⭐️MT 초대장⭐️</p>
-          <p className="subtitle">워크샵 아니고 엠.티.</p>
-          <p className="subtitle">직장인 참가 가능</p>
+          <p className="title">- MT 초대장 -</p>
+          <p className="subtitle">⭐️직장인도 엠티 간다⭐️</p>
+          <p className="subtitle">만 26세 이상 참가 가능</p>
         </Title>
         <Detail>
           <p>- 일시: 2023.10.08 (일) 12:00</p>
@@ -46,7 +42,7 @@ export default function Home() {
             <span className="count">{list?.length}</span>명
           </p>
         </Count>
-
+        <Button onClick={() => router.push("/list")}>참가 목록 보러가기</Button>
         <Button onClick={() => router.push("/register")}>
           신청서 작성하러 가기
         </Button>
