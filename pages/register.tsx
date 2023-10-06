@@ -11,7 +11,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { dbService, storageService } from "@/firebase";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
-import { ref, uploadString } from "firebase/storage";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { uuidv7 } from "uuidv7";
 
 export default function Register() {
@@ -45,13 +45,15 @@ export default function Register() {
   const handleRegister = async (data: IRegister) => {
     const { name, birth, drive, goal } = data;
     try {
+      let attachmentURL = "";
       if (file) {
         const attachmentRef = ref(storageService, uuidv7());
-        await uploadString(attachmentRef, file, "data_url");
+        const response = await uploadString(attachmentRef, file, "data_url");
+        attachmentURL = await getDownloadURL(response.ref);
       }
 
       await addDoc(collection(dbService, "list"), {
-        file,
+        file: attachmentURL,
         name,
         birth,
         drive,
@@ -60,8 +62,8 @@ export default function Register() {
       });
       alert("신청 등록이 완료되었습니다.");
       router.replace("/");
-    } catch {
-      alert("정보 등록에 실패하였습니다.");
+    } catch (err) {
+      alert(err);
     }
   };
 
