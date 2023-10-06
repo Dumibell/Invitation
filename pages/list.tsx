@@ -1,3 +1,4 @@
+import { Loading } from "@/Components/Loading";
 import { dbService } from "@/firebase";
 import { IList } from "@/interfaces/interfaces";
 import styled from "@emotion/styled";
@@ -43,13 +44,17 @@ export default function List() {
         {list?.map((info) => {
           return (
             <ListBox key={info.id}>
-              <Image
-                src={info.file}
-                alt=""
-                width={70}
-                height={70}
-                className="profileImgae"
-              />
+              {info.file ? (
+                <Image
+                  src={info.file}
+                  alt=""
+                  width={70}
+                  height={70}
+                  className="profileImgae"
+                />
+              ) : (
+                <Loading />
+              )}
               <InfoBox>
                 <p>
                   <span className="name">{info.name}</span>

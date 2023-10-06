@@ -1,4 +1,5 @@
 import { Button } from "@/Components/Button";
+import { Loading } from "@/Components/Loading";
 import { dbService } from "@/firebase";
 import { IList, IRegister } from "@/interfaces/interfaces";
 import styled from "@emotion/styled";
@@ -38,9 +39,13 @@ export default function Home() {
         </Detail>
         <Count>
           <p>현재 참가 인원</p>
-          <p>
-            <span className="count">{list?.length}</span>명
-          </p>
+          {list === undefined ? (
+            <Loading />
+          ) : (
+            <p>
+              <span className="count">{list?.length}</span>명
+            </p>
+          )}
         </Count>
         <Button onClick={() => router.push("/list")}>참가 목록 보러가기</Button>
         <Button onClick={() => router.push("/register")}>
@@ -107,3 +112,13 @@ const Count = styled.div`
     font-weight: 600;
   }
 `;
+
+// const Loading = styled.div`
+//   width: 25px;
+//   height: 25px;
+//   border: 3px dotted white;
+//   border-radius: 70%;
+//   margin-top: 5px;
+
+//   transition: all ease 1s;
+// `;
