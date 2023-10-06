@@ -1,30 +1,29 @@
 import { Button } from "@/Components/Button";
 import { dbService } from "@/firebase";
+import { IRegister } from "@/interfaces/interfaces";
 import styled from "@emotion/styled";
 import { useSpring, animated } from "@react-spring/web";
-import {
-  collection,
-  doc,
-  getDocs,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
+import { collection, onSnapshot, query } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
+interface IList extends IRegister {
+  id: string;
+}
+
 export default function Home() {
   const router = useRouter();
-  const [list, setList] = useState();
+  const [list, setList] = useState<IList[]>();
 
+  //데이터 조회
   useEffect(() => {
     const q = query(collection(dbService, "list"));
     onSnapshot(q, (snapshot) => {
       const arr = snapshot.docs.map((doc) => ({
-        // id: doc.id,
+        id: doc.id,
         ...doc.data(),
       }));
-      console.log(arr);
+      setList(arr as IList[]);
     });
   }, []);
 
@@ -44,7 +43,7 @@ export default function Home() {
         <Count>
           <p>현재 참가 인원</p>
           <p>
-            <span className="count">0</span>명
+            <span className="count">{list?.length}</span>명
           </p>
         </Count>
 
@@ -112,12 +111,3 @@ const Count = styled.div`
     font-weight: 600;
   }
 `;
-
-// const Button = styled.button`
-//   background-color: white;
-//   border: none;
-//   font-size: 20px;
-//   border-radius: 5px;
-//   height: 30px;
-//   margin-top: 20px;
-// `;
