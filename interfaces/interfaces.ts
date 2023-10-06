@@ -7,5 +7,6 @@ export interface IRegister {
 
 export interface IList extends IRegister {
   id: string;
+  file: string;
   createdAt: string;
 }
