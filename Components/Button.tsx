@@ -31,4 +31,8 @@ const ButtonContainer = styled.button<{
   border-radius: 5px;
   height: 32px;
   margin-top: 20px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
