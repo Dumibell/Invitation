@@ -2,6 +2,8 @@ import { Loading } from "@/Components/Loading";
 import { dbService } from "@/firebase";
 import { IList } from "@/interfaces/interfaces";
 import styled from "@emotion/styled";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import dayjs from "dayjs";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import Image from "next/image";
@@ -53,7 +55,9 @@ export default function List() {
                   className="profileImgae"
                 />
               ) : (
-                <Loading />
+                <ProfileIcon>
+                  <FontAwesomeIcon icon={faUser} size="2x" />
+                </ProfileIcon>
               )}
               <InfoBox>
                 <p>
@@ -101,6 +105,16 @@ const ListBox = styled.div`
   }
 `;
 
+const ProfileIcon = styled.div`
+  background-color: lightgray;
+  border-radius: 30%;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const InfoBox = styled.div`
   .name {
     font-size: 20px;
@@ -115,6 +129,7 @@ const InfoBox = styled.div`
 
   // 한줄이 넘어갈 경우 말줌임표시
   .goal {
+    max-width: 220px;
     overflow: hidden;
     white-space: normal;
     text-overflow: ellipsis;
