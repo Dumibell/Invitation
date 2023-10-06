@@ -94,7 +94,11 @@ export default function Register() {
               onChange={onFileChange}
             />
           </PhotoBox>
-          <Input label="이름" register={register("name", { required: true })} />
+          <Input
+            label="이름"
+            register={register("name", { required: true })}
+            maxLength={5}
+          />
           <Input
             label="생년월일"
             type="date"
